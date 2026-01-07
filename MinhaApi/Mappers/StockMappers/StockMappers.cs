@@ -11,20 +11,32 @@ namespace MinhaApi.Mappers.StockMappers
     {
 
         public static MinhaApi.Dtos.Stock.StockDto ToStockDto(this Stock stockModel)
- //método de extensão que converte Stock para StockDto
+        //método de extensão que converte Stock para StockDto
         {
             return new MinhaApi.Dtos.Stock.StockDto
-{
-    Id = stockModel.Id,
-    Symbol = stockModel.Symbol,
-    CompanyName = stockModel.CompanyName,
-    Purchase = stockModel.Purchase,
-    LastDiv = stockModel.LastDiv,
-    Industry = stockModel.Industry,
-    MarketCap = stockModel.MarketCap
-};
+            {
+                Id = stockModel.Id,
+                Symbol = stockModel.Symbol,
+                CompanyName = stockModel.CompanyName,
+                Purchase = stockModel.Purchase,
+                LastDiv = stockModel.LastDiv,
+                Industry = stockModel.Industry,
+                MarketCap = stockModel.MarketCap
+            };
 
         }
-        
+
+        public static Stock ToStockFromCreateDTO(this CreateStockRequestDto createDto)
+        {
+            return new Stock
+            {
+                Symbol = createDto.Symbol,
+                CompanyName = createDto.CompanyName,
+                Purchase = createDto.Purchase,
+                LastDiv = createDto.LastDiv,
+                Industry = createDto.Industry,
+                MarketCap = createDto.MarketCap
+            };
+        }
     }
 }
