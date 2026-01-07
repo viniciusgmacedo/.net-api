@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MinhaApi.data;
-
+using MinhaApi.Mappers.StockMappers;
 
 namespace MinhaApi.Controllers
 {
@@ -23,7 +23,7 @@ namespace MinhaApi.Controllers
         [HttpGet] //rota para pegar todos os stocks
         public IActionResult GetAll() //pega todos os stocks
         {
-            var stocks = _context.Stocks.ToList(); // usa o tolist para converter em lista e pegar todos os stocks
+            var stocks = _context.Stocks.ToList().Select(s=> s.ToStockDto()); // usa o tolist para converter em lista e pegar todos os stocks
             return Ok(stocks); //retorna a lista de stocks com status 200 OK
         }
 
@@ -35,7 +35,7 @@ namespace MinhaApi.Controllers
             {
                 return NotFound();
             }
-            return Ok(stock);
+            return Ok(stock.ToStockDto()); //retorna o stock convertido para StockDto com status 200 OK
         }
     }
 }
