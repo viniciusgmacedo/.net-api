@@ -50,6 +50,28 @@ namespace MinhaApi.Controllers
 
         }
 
+        [HttpPut] //rota para criar um novo stock
+        [Route("{id}")]
+
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateStockDto) //aqii tenho o id e o corpo da requisição
+        {
+            var stockModel = _context.Stocks.Find(id); //procura o stock pelo id
+            if (stockModel == null)
+            {
+                return NotFound(); //se não encontrar, retorna 404 Not Found
+            }
+            if (updateStockDto.Symbol is not null) stockModel.Symbol = updateStockDto.Symbol; //atualiza o símbolo se fornecido
+            if (updateStockDto.CompanyName is not null) stockModel.CompanyName = updateStockDto.CompanyName; //atualiza o nome da empresa se fornecido
+            if (updateStockDto.Purchase.HasValue) stockModel.Purchase = updateStockDto.Purchase.Value; //atualiza o valor de compra se fornecido
+            if (updateStockDto.LastDiv.HasValue) stockModel.LastDiv = updateStockDto.LastDiv.Value; //atualiza o último dividendo se fornecido
+            if (updateStockDto.Industry is not null) stockModel.Industry = updateStockDto.Industry; //atualiza a indústria se fornecido
+            if (updateStockDto.MarketCap.HasValue) stockModel.MarketCap = updateStockDto.MarketCap.Value; //atualiza o valor de mercado se fornecido
+
+            _context.SaveChanges(); //salva as mudanças no banco de dados
+            return Ok(stockModel.ToStockDto()); //retorna o stock atualizado com status 200 OK
+
+        }
+
 
 
     }
