@@ -72,6 +72,21 @@ namespace MinhaApi.Controllers
 
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id) //deleta um stock pelo id
+        {
+            var stockModel = _context.Stocks.FirstOrDefault(s => s.Id == id); //procura o stock pelo id
+            if (stockModel == null)
+            {
+                return NotFound(); //se não encontrar, retorna 404 Not Found
+            }
+            _context.Stocks.Remove(stockModel); //remove o stock do contexto
+            _context.SaveChanges(); //salva as mudanças no banco de dados
+            return NoContent(); //retorna 204 No Content
+        }
+
+
 
 
     }
