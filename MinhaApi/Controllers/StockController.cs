@@ -50,7 +50,7 @@ namespace MinhaApi.Controllers
 
         }
 
-        [HttpPut] //rota para criar um novo stock
+        [HttpPatch] //rota para criar um novo stock
         [Route("{id}")]
 
         public IActionResult Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateStockDto) //aqii tenho o id e o corpo da requisição
