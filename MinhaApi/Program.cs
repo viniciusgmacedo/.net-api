@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MinhaApi.data;
+using MinhaApi.Interfaces;
+using MinhaApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<applicationDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IStockRepository, StockRepository>();
 
 var app = builder.Build();
 
